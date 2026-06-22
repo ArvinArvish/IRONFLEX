@@ -1,0 +1,895 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>IRONFLEX — Steel. Structure. Strength.</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@400;600;700;800;900&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet" />
+  <style>
+    /* ── TOKENS ─────────────────────────────────────────── */
+    :root {
+      --ink:      #0D0D0D;
+      --steel:    #1C1C1E;
+      --mid:      #2E2E30;
+      --rule:     #3A3A3C;
+      --amber:    #D4820A;
+      --amber-lt: #F0A020;
+      --bone:     #E8E4DC;
+      --fog:      #9A9A9C;
+      --white:    #FFFFFF;
+
+      --display: 'Barlow Condensed', sans-serif;
+      --body:    'Inter', sans-serif;
+    }
+
+    /* ── RESET ──────────────────────────────────────────── */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body {
+      background: var(--ink);
+      color: var(--bone);
+      font-family: var(--body);
+      font-size: 16px;
+      line-height: 1.6;
+      overflow-x: hidden;
+    }
+    img { display: block; max-width: 100%; }
+    a { color: inherit; text-decoration: none; }
+
+    /* ── NAV ────────────────────────────────────────────── */
+    nav {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 100;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 1.25rem 4rem;
+      background: rgba(13,13,13,0.88);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--rule);
+    }
+    .nav-logo {
+      font-family: var(--display);
+      font-weight: 900;
+      font-size: 1.6rem;
+      letter-spacing: 0.12em;
+      color: var(--white);
+    }
+    .nav-logo span { color: var(--amber); }
+    .nav-links {
+      display: flex;
+      gap: 2.5rem;
+      list-style: none;
+    }
+    .nav-links a {
+      font-size: 0.78rem;
+      font-weight: 500;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--fog);
+      transition: color 0.2s;
+    }
+    .nav-links a:hover { color: var(--white); }
+    .nav-cta {
+      background: var(--amber);
+      color: var(--ink) !important;
+      padding: 0.55rem 1.4rem;
+      font-weight: 600 !important;
+      color: var(--ink);
+    }
+    .nav-cta:hover { background: var(--amber-lt); color: var(--ink) !important; }
+
+    /* ── HERO ───────────────────────────────────────────── */
+    #hero {
+      position: relative;
+      min-height: 100vh;
+      display: flex;
+      align-items: flex-end;
+      padding: 0 4rem 7rem;
+      overflow: hidden;
+    }
+    .hero-bg {
+      position: absolute;
+      inset: 0;
+      background:
+        linear-gradient(to right, rgba(13,13,13,0.92) 40%, rgba(13,13,13,0.3) 100%),
+        url('https://images.unsplash.com/photo-1504307651254-35680f356dfd?w=1800&q=80') center/cover no-repeat;
+    }
+    /* signature: diagonal amber slash */
+    .hero-slash {
+      position: absolute;
+      right: 0; top: 0; bottom: 0;
+      width: 38%;
+      background: linear-gradient(160deg, transparent 48%, var(--amber) 48.2%, var(--amber) 50%, transparent 50.2%);
+      opacity: 0.18;
+      pointer-events: none;
+    }
+    .hero-content {
+      position: relative;
+      max-width: 780px;
+    }
+    .hero-eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.75rem;
+      font-size: 0.72rem;
+      font-weight: 600;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--amber);
+      margin-bottom: 1.5rem;
+    }
+    .hero-eyebrow::before {
+      content: '';
+      display: block;
+      width: 2.5rem;
+      height: 2px;
+      background: var(--amber);
+    }
+    .hero-title {
+      font-family: var(--display);
+      font-weight: 900;
+      font-size: clamp(4rem, 9vw, 8rem);
+      line-height: 0.92;
+      letter-spacing: -0.01em;
+      text-transform: uppercase;
+      color: var(--white);
+      margin-bottom: 1.5rem;
+    }
+    .hero-title em {
+      font-style: normal;
+      color: var(--amber);
+    }
+    .hero-sub {
+      font-size: 1.1rem;
+      font-weight: 300;
+      color: var(--fog);
+      max-width: 480px;
+      margin-bottom: 2.5rem;
+      line-height: 1.7;
+    }
+    .hero-actions {
+      display: flex;
+      gap: 1rem;
+      flex-wrap: wrap;
+    }
+    .btn-primary {
+      background: var(--amber);
+      color: var(--ink);
+      font-weight: 700;
+      font-size: 0.85rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      padding: 1rem 2.2rem;
+      transition: background 0.2s, transform 0.15s;
+    }
+    .btn-primary:hover { background: var(--amber-lt); transform: translateY(-2px); }
+    .btn-ghost {
+      border: 1px solid var(--rule);
+      color: var(--bone);
+      font-weight: 500;
+      font-size: 0.85rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      padding: 1rem 2.2rem;
+      transition: border-color 0.2s, transform 0.15s;
+    }
+    .btn-ghost:hover { border-color: var(--fog); transform: translateY(-2px); }
+
+    /* hero stats bar */
+    .hero-stats {
+      position: absolute;
+      bottom: 0; left: 0; right: 0;
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      border-top: 1px solid var(--rule);
+    }
+    .hero-stat {
+      padding: 1.4rem 4rem;
+      border-right: 1px solid var(--rule);
+    }
+    .hero-stat:last-child { border-right: none; }
+    .hero-stat-num {
+      font-family: var(--display);
+      font-weight: 800;
+      font-size: 2.2rem;
+      color: var(--white);
+      line-height: 1;
+    }
+    .hero-stat-num span { color: var(--amber); }
+    .hero-stat-label {
+      font-size: 0.72rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--fog);
+      margin-top: 0.3rem;
+    }
+
+    /* ── SECTION COMMONS ────────────────────────────────── */
+    section { padding: 7rem 4rem; }
+    .section-eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.75rem;
+      font-size: 0.72rem;
+      font-weight: 600;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--amber);
+      margin-bottom: 1rem;
+    }
+    .section-eyebrow::before {
+      content: '';
+      display: block;
+      width: 2rem;
+      height: 2px;
+      background: var(--amber);
+    }
+    .section-title {
+      font-family: var(--display);
+      font-weight: 800;
+      font-size: clamp(2.4rem, 5vw, 4rem);
+      line-height: 0.95;
+      text-transform: uppercase;
+      color: var(--white);
+      margin-bottom: 1.25rem;
+    }
+    .section-body {
+      font-size: 1rem;
+      font-weight: 300;
+      color: var(--fog);
+      line-height: 1.75;
+      max-width: 560px;
+    }
+
+    /* ── ABOUT ──────────────────────────────────────────── */
+    #about {
+      background: var(--steel);
+      border-top: 1px solid var(--rule);
+    }
+    .about-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 6rem;
+      align-items: center;
+    }
+    .about-image-wrap {
+      position: relative;
+    }
+    .about-image {
+      width: 100%;
+      aspect-ratio: 4/5;
+      object-fit: cover;
+      filter: grayscale(20%);
+    }
+    /* amber corner accent */
+    .about-image-wrap::after {
+      content: '';
+      position: absolute;
+      bottom: -1.5rem;
+      right: -1.5rem;
+      width: 5rem;
+      height: 5rem;
+      border-right: 3px solid var(--amber);
+      border-bottom: 3px solid var(--amber);
+    }
+    .about-features {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1.5rem;
+      margin-top: 2.5rem;
+    }
+    .about-feature {
+      border-top: 1px solid var(--rule);
+      padding-top: 1rem;
+    }
+    .about-feature-label {
+      font-size: 0.72rem;
+      font-weight: 600;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--amber);
+      margin-bottom: 0.3rem;
+    }
+    .about-feature-text {
+      font-size: 0.9rem;
+      color: var(--fog);
+      line-height: 1.5;
+    }
+
+    /* ── SERVICES ───────────────────────────────────────── */
+    #services {
+      border-top: 1px solid var(--rule);
+    }
+    .services-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-end;
+      margin-bottom: 4rem;
+    }
+    .services-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1px;
+      background: var(--rule);
+      border: 1px solid var(--rule);
+    }
+    .service-card {
+      background: var(--ink);
+      padding: 2.5rem 2rem;
+      transition: background 0.25s;
+      position: relative;
+      overflow: hidden;
+    }
+    .service-card::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; right: 0;
+      height: 2px;
+      background: var(--amber);
+      transform: scaleX(0);
+      transform-origin: left;
+      transition: transform 0.3s ease;
+    }
+    .service-card:hover { background: var(--steel); }
+    .service-card:hover::before { transform: scaleX(1); }
+    .service-icon {
+      width: 2.5rem;
+      height: 2.5rem;
+      margin-bottom: 1.5rem;
+      color: var(--amber);
+    }
+    .service-name {
+      font-family: var(--display);
+      font-weight: 700;
+      font-size: 1.5rem;
+      text-transform: uppercase;
+      color: var(--white);
+      margin-bottom: 0.75rem;
+      line-height: 1.1;
+    }
+    .service-desc {
+      font-size: 0.88rem;
+      color: var(--fog);
+      line-height: 1.65;
+    }
+
+    /* ── PORTFOLIO ──────────────────────────────────────── */
+    #portfolio {
+      background: var(--steel);
+      border-top: 1px solid var(--rule);
+    }
+    .portfolio-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-end;
+      margin-bottom: 3rem;
+    }
+    .portfolio-grid {
+      display: grid;
+      grid-template-columns: repeat(12, 1fr);
+      grid-template-rows: 280px 280px;
+      gap: 1rem;
+    }
+    .portfolio-item {
+      overflow: hidden;
+      position: relative;
+      cursor: pointer;
+    }
+    .portfolio-item:nth-child(1) { grid-column: 1 / 8; grid-row: 1; }
+    .portfolio-item:nth-child(2) { grid-column: 8 / 13; grid-row: 1; }
+    .portfolio-item:nth-child(3) { grid-column: 1 / 5; grid-row: 2; }
+    .portfolio-item:nth-child(4) { grid-column: 5 / 13; grid-row: 2; }
+    .portfolio-item img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      filter: grayscale(30%);
+      transition: transform 0.5s ease, filter 0.3s;
+    }
+    .portfolio-item:hover img {
+      transform: scale(1.04);
+      filter: grayscale(0%);
+    }
+    .portfolio-overlay {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(to top, rgba(13,13,13,0.8) 0%, transparent 60%);
+      display: flex;
+      align-items: flex-end;
+      padding: 1.5rem;
+      opacity: 0;
+      transition: opacity 0.3s;
+    }
+    .portfolio-item:hover .portfolio-overlay { opacity: 1; }
+    .portfolio-overlay-text {
+      font-family: var(--display);
+      font-weight: 700;
+      font-size: 1.1rem;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: var(--white);
+    }
+    .portfolio-overlay-sub {
+      font-size: 0.75rem;
+      color: var(--amber);
+      font-weight: 500;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+    }
+
+    /* ── TESTIMONIALS ───────────────────────────────────── */
+    #testimonials {
+      border-top: 1px solid var(--rule);
+    }
+    .testimonials-header { margin-bottom: 3.5rem; }
+    .testimonials-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1.5rem;
+    }
+    .testimonial-card {
+      background: var(--steel);
+      border: 1px solid var(--rule);
+      padding: 2rem;
+      position: relative;
+    }
+    .testimonial-quote {
+      font-family: var(--display);
+      font-size: 5rem;
+      line-height: 1;
+      color: var(--amber);
+      opacity: 0.3;
+      position: absolute;
+      top: 0.5rem;
+      left: 1.5rem;
+    }
+    .testimonial-text {
+      font-size: 0.95rem;
+      color: var(--bone);
+      line-height: 1.7;
+      margin-bottom: 1.5rem;
+      padding-top: 1.5rem;
+    }
+    .testimonial-author {
+      border-top: 1px solid var(--rule);
+      padding-top: 1rem;
+    }
+    .testimonial-name {
+      font-weight: 600;
+      font-size: 0.88rem;
+      color: var(--white);
+    }
+    .testimonial-role {
+      font-size: 0.75rem;
+      color: var(--fog);
+      letter-spacing: 0.05em;
+    }
+
+    /* ── CONTACT ────────────────────────────────────────── */
+    #contact {
+      background: var(--ink);
+      border-top: 1px solid var(--rule);
+    }
+    .contact-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 6rem;
+    }
+    .contact-details { margin-top: 2.5rem; }
+    .contact-detail {
+      display: flex;
+      gap: 1rem;
+      align-items: flex-start;
+      margin-bottom: 1.75rem;
+    }
+    .contact-detail-icon {
+      width: 1.2rem;
+      height: 1.2rem;
+      color: var(--amber);
+      flex-shrink: 0;
+      margin-top: 2px;
+    }
+    .contact-detail-label {
+      font-size: 0.72rem;
+      font-weight: 600;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--amber);
+      margin-bottom: 0.2rem;
+    }
+    .contact-detail-value {
+      font-size: 0.95rem;
+      color: var(--bone);
+    }
+    .contact-form { display: flex; flex-direction: column; gap: 1.25rem; }
+    .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 1.25rem; }
+    .form-group { display: flex; flex-direction: column; gap: 0.4rem; }
+    .form-label {
+      font-size: 0.72rem;
+      font-weight: 600;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--fog);
+    }
+    .form-input, .form-select, .form-textarea {
+      background: var(--steel);
+      border: 1px solid var(--rule);
+      color: var(--bone);
+      font-family: var(--body);
+      font-size: 0.95rem;
+      padding: 0.85rem 1rem;
+      outline: none;
+      transition: border-color 0.2s;
+      width: 100%;
+    }
+    .form-input:focus, .form-select:focus, .form-textarea:focus {
+      border-color: var(--amber);
+    }
+    .form-select { appearance: none; cursor: pointer; }
+    .form-textarea { resize: vertical; min-height: 130px; }
+    .form-textarea::placeholder,
+    .form-input::placeholder { color: var(--rule); }
+
+    /* ── FOOTER ─────────────────────────────────────────── */
+    footer {
+      background: var(--steel);
+      border-top: 1px solid var(--rule);
+      padding: 2rem 4rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+    .footer-logo {
+      font-family: var(--display);
+      font-weight: 900;
+      font-size: 1.2rem;
+      letter-spacing: 0.12em;
+      color: var(--white);
+    }
+    .footer-logo span { color: var(--amber); }
+    .footer-copy {
+      font-size: 0.78rem;
+      color: var(--fog);
+    }
+
+    /* ── RESPONSIVE ─────────────────────────────────────── */
+    @media (max-width: 900px) {
+      nav { padding: 1rem 1.5rem; }
+      .nav-links { display: none; }
+      section { padding: 4rem 1.5rem; }
+      #hero { padding: 0 1.5rem 14rem; }
+      .hero-stats { display: grid; grid-template-columns: 1fr 1fr 1fr; }
+      .hero-stat { padding: 1rem 1.5rem; }
+      .about-grid { grid-template-columns: 1fr; gap: 3rem; }
+      .about-image-wrap::after { display: none; }
+      .services-header { flex-direction: column; align-items: flex-start; gap: 1rem; }
+      .services-grid { grid-template-columns: 1fr; }
+      .portfolio-grid { grid-template-columns: 1fr 1fr; grid-template-rows: auto; }
+      .portfolio-item { grid-column: auto !important; grid-row: auto !important; height: 200px; }
+      .testimonials-grid { grid-template-columns: 1fr; }
+      .portfolio-header { flex-direction: column; align-items: flex-start; gap: 1rem; }
+      .contact-grid { grid-template-columns: 1fr; gap: 3rem; }
+      .form-row { grid-template-columns: 1fr; }
+      footer { flex-direction: column; gap: 0.75rem; text-align: center; padding: 1.5rem; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <div class="nav-logo">IRON<span>FLEX</span></div>
+  <ul class="nav-links">
+    <li><a href="#about">About</a></li>
+    <li><a href="#services">Services</a></li>
+    <li><a href="#portfolio">Projects</a></li>
+    <li><a href="#testimonials">Clients</a></li>
+    <li><a href="#contact" class="nav-cta">Get a Quote</a></li>
+  </ul>
+</nav>
+
+<!-- HERO -->
+<section id="hero">
+  <div class="hero-bg"></div>
+  <div class="hero-slash"></div>
+  <div class="hero-content">
+    <div class="hero-eyebrow">Construction &amp; Engineering</div>
+    <h1 class="hero-title">Built in<br/><em>Steel.</em><br/>Built to Last.</h1>
+    <p class="hero-sub">IRONFLEX delivers precision welding, structural steel, and full-scale commercial and industrial builds — from first blueprint to final bolt.</p>
+    <div class="hero-actions">
+      <a href="#contact" class="btn-primary">Request a Quote</a>
+      <a href="#portfolio" class="btn-ghost">View Our Work</a>
+    </div>
+  </div>
+  <div class="hero-stats">
+    <div class="hero-stat">
+      <div class="hero-stat-num">18<span>+</span></div>
+      <div class="hero-stat-label">Years in the Field</div>
+    </div>
+    <div class="hero-stat">
+      <div class="hero-stat-num">340<span>+</span></div>
+      <div class="hero-stat-label">Projects Completed</div>
+    </div>
+    <div class="hero-stat">
+      <div class="hero-stat-num">100<span>%</span></div>
+      <div class="hero-stat-label">On-Time Delivery Rate</div>
+    </div>
+  </div>
+</section>
+
+<!-- ABOUT -->
+<section id="about">
+  <div class="about-grid">
+    <div class="about-image-wrap">
+      <img class="about-image"
+        src="about-ironflex.png"
+        alt="IRONFLEX construction site" />
+    </div>
+    <div>
+      <div class="section-eyebrow">Who We Are</div>
+      <h2 class="section-title">Forged From<br/>Experience</h2>
+      <p class="section-body">IRONFLEX is a full-service construction and fabrication company built on a foundation of precision craftsmanship and engineering integrity. From residential renovations to large-scale industrial structures, we bring the same relentless standard to every project.</p>
+      <p class="section-body" style="margin-top:1rem;">Our crews are certified welders, structural specialists, and project managers who treat every site as if their name is on the building — because it is.</p>
+      <div class="about-features">
+        <div class="about-feature">
+          <div class="about-feature-label">Licensed &amp; Insured</div>
+          <div class="about-feature-text">Fully certified across residential, commercial, and industrial scopes.</div>
+        </div>
+        <div class="about-feature">
+          <div class="about-feature-label">In-House Fabrication</div>
+          <div class="about-feature-text">Custom steel work fabricated on-site to exact specifications.</div>
+        </div>
+        <div class="about-feature">
+          <div class="about-feature-label">End-to-End PM</div>
+          <div class="about-feature-text">One team manages design, permits, procurement, and build.</div>
+        </div>
+        <div class="about-feature">
+          <div class="about-feature-label">Safety-First Culture</div>
+          <div class="about-feature-text">Zero-incident mindset on every site, every shift.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SERVICES -->
+<section id="services">
+  <div class="services-header">
+    <div>
+      <div class="section-eyebrow">What We Do</div>
+      <h2 class="section-title">Our Services</h2>
+    </div>
+    <a href="#contact" class="btn-ghost">Talk to Our Team →</a>
+  </div>
+  <div class="services-grid">
+
+    <div class="service-card">
+      <svg class="service-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+        <path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5"/><path d="M2 12l10 5 10-5"/>
+      </svg>
+      <div class="service-name">Structural<br/>Welding</div>
+      <p class="service-desc">Certified MIG, TIG, and stick welding for structural connections, pressure vessels, and custom fabrications. Every weld is inspected and documented.</p>
+    </div>
+
+    <div class="service-card">
+      <svg class="service-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+        <rect x="3" y="3" width="18" height="18" rx="1"/><path d="M3 9h18M9 21V9"/>
+      </svg>
+      <div class="service-name">Steel<br/>Structures</div>
+      <p class="service-desc">Design, fabrication, and erection of steel frames for warehouses, multi-storey commercial builds, mezzanine floors, and industrial platforms.</p>
+    </div>
+
+    <div class="service-card">
+      <svg class="service-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+        <path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/>
+      </svg>
+      <div class="service-name">Home<br/>Renovation</div>
+      <p class="service-desc">Full interior and exterior renovations — kitchens, basements, additions, and structural modifications delivered on schedule and on budget.</p>
+    </div>
+
+    <div class="service-card">
+      <svg class="service-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+        <path d="M2 20h20M4 20V10l8-6 8 6v10"/><path d="M10 20v-5h4v5"/>
+      </svg>
+      <div class="service-name">Commercial<br/>Design</div>
+      <p class="service-desc">Retail fit-outs, office builds, restaurants, and mixed-use developments. We handle architectural planning through to occupancy permit.</p>
+    </div>
+
+    <div class="service-card">
+      <svg class="service-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+        <circle cx="12" cy="12" r="3"/><path d="M19.07 4.93l-1.41 1.41M5.34 18.66l-1.41 1.41M22 12h-2M4 12H2M19.07 19.07l-1.41-1.41M5.34 5.34L3.93 3.93"/>
+      </svg>
+      <div class="service-name">Industrial<br/>Design</div>
+      <p class="service-desc">Heavy industrial fabrication, plant layout, equipment skids, and process piping for manufacturing, oil &amp; gas, and utilities sectors.</p>
+    </div>
+
+    <div class="service-card">
+      <svg class="service-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+        <path d="M9 11l3 3L22 4"/><path d="M21 12v7a2 2 0 01-2 2H5a2 2 0 01-2-2V5a2 2 0 012-2h11"/>
+      </svg>
+      <div class="service-name">Project<br/>Management</div>
+      <p class="service-desc">Dedicated PMs from scoping to handover. Schedule tracking, subcontractor coordination, procurement, and reporting — so you never lose visibility.</p>
+    </div>
+
+  </div>
+</section>
+
+<!-- PORTFOLIO -->
+<section id="portfolio">
+  <div class="portfolio-header">
+    <div>
+      <div class="section-eyebrow">Featured Work</div>
+      <h2 class="section-title">Projects</h2>
+    </div>
+    <a href="#contact" class="btn-ghost">Discuss Your Project →</a>
+  </div>
+  <div class="portfolio-grid">
+
+    <div class="portfolio-item">
+      <img src="https://images.unsplash.com/photo-1565008447742-97f6f38c985c?w=900&q=80" alt="Industrial steel structure" />
+      <div class="portfolio-overlay">
+        <div>
+          <div class="portfolio-overlay-sub">Industrial</div>
+          <div class="portfolio-overlay-text">Lakeside Distribution Centre</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="portfolio-item">
+      <img src="https://images.unsplash.com/photo-1504307651254-35680f356dfd?w=600&q=80" alt="Welding project" />
+      <div class="portfolio-overlay">
+        <div>
+          <div class="portfolio-overlay-sub">Welding &amp; Fabrication</div>
+          <div class="portfolio-overlay-text">Custom Structural Frame</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="portfolio-item">
+      <img src="https://images.unsplash.com/photo-1503387762-592deb58ef4e?w=500&q=80" alt="Commercial building" />
+      <div class="portfolio-overlay">
+        <div>
+          <div class="portfolio-overlay-sub">Commercial</div>
+          <div class="portfolio-overlay-text">Meridian Office Complex</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="portfolio-item">
+      <img src="https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=900&q=80" alt="Home renovation" />
+      <div class="portfolio-overlay">
+        <div>
+          <div class="portfolio-overlay-sub">Renovation</div>
+          <div class="portfolio-overlay-text">Thornwood Residence Rebuild</div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- TESTIMONIALS -->
+<section id="testimonials">
+  <div class="testimonials-header">
+    <div class="section-eyebrow">Client Stories</div>
+    <h2 class="section-title">What Our Clients Say</h2>
+  </div>
+  <div class="testimonials-grid">
+
+    <div class="testimonial-card">
+      <div class="testimonial-quote">"</div>
+      <p class="testimonial-text">IRONFLEX completed our 12,000 sq ft warehouse frame two weeks ahead of schedule. The weld quality exceeded our engineer's inspection — not a single rejection. We've already contracted them for phase two.</p>
+      <div class="testimonial-author">
+        <div class="testimonial-name">Marcus Delray</div>
+        <div class="testimonial-role">Ops Director, Delray Logistics Group</div>
+      </div>
+    </div>
+
+    <div class="testimonial-card">
+      <div class="testimonial-quote">"</div>
+      <p class="testimonial-text">From demo to final finishes, the renovation team was meticulous. They caught a load-bearing issue our original contractor missed and resolved it without a single day's delay. Exceptional people.</p>
+      <div class="testimonial-author">
+        <div class="testimonial-name">Sandra Osei</div>
+        <div class="testimonial-role">Homeowner, North York</div>
+      </div>
+    </div>
+
+    <div class="testimonial-card">
+      <div class="testimonial-quote">"</div>
+      <p class="testimonial-text">Managing a multi-trade commercial fit-out is stressful. IRONFLEX's project management was so thorough that our opening date stayed intact despite three design changes mid-build. Wouldn't use anyone else.</p>
+      <div class="testimonial-author">
+        <div class="testimonial-name">Adrian Kowalczyk</div>
+        <div class="testimonial-role">Owner, Apex Hospitality Group</div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section id="contact">
+  <div class="contact-grid">
+    <div>
+      <div class="section-eyebrow">Let's Build</div>
+      <h2 class="section-title">Start Your<br/>Project</h2>
+      <p class="section-body">Tell us what you're building. We'll put together a detailed scope and quote within 48 hours — no obligation.</p>
+      <div class="contact-details">
+        <div class="contact-detail">
+          <svg class="contact-detail-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+            <path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 013.07 9.81a19.79 19.79 0 01-3.07-8.63A2 2 0 012 .12h3a2 2 0 012 1.72 12.84 12.84 0 00.7 2.81 2 2 0 01-.45 2.11L6.09 7.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45 12.84 12.84 0 002.81.7A2 2 0 0122 14.92v2z"/>
+          </svg>
+          <div>
+            <div class="contact-detail-label">Phone</div>
+            <div class="contact-detail-value">+1 (416) 555-0192</div>
+          </div>
+        </div>
+        <div class="contact-detail">
+          <svg class="contact-detail-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+            <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/>
+          </svg>
+          <div>
+            <div class="contact-detail-label">Email</div>
+            <div class="contact-detail-value">info@ironflex.ca</div>
+          </div>
+        </div>
+        <div class="contact-detail">
+          <svg class="contact-detail-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+            <path d="M21 10c0 7-9 13-9 13S3 17 3 10a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/>
+          </svg>
+          <div>
+            <div class="contact-detail-label">Location</div>
+            <div class="contact-detail-value">Serving Toronto &amp; Greater Ontario</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <form class="contact-form" action="https://formspree.io/f/xkolnwbl" method="POST">
+      <div class="form-row">
+        <div class="form-group">
+          <label class="form-label" for="first-name">First Name</label>
+          <input class="form-input" type="text" id="first-name" name="first_name" placeholder="John" required />
+        </div>
+        <div class="form-group">
+          <label class="form-label" for="last-name">Last Name</label>
+          <input class="form-input" type="text" id="last-name" name="last_name" placeholder="Smith" required />
+        </div>
+      </div>
+      <div class="form-group">
+        <label class="form-label" for="email">Email</label>
+        <input class="form-input" type="email" id="email" name="email" placeholder="john@company.com" required />
+      </div>
+      <div class="form-group">
+        <label class="form-label" for="project-type">Project Type</label>
+        <select class="form-select form-input" id="project-type" name="project_type" required>
+          <option value="" disabled selected>Select a service</option>
+          <option>Structural Welding</option>
+          <option>Steel Structure</option>
+          <option>Home Renovation</option>
+          <option>Commercial Design &amp; Build</option>
+          <option>Industrial Design &amp; Build</option>
+          <option>Project Management</option>
+          <option>Other</option>
+        </select>
+      </div>
+      <div class="form-group">
+        <label class="form-label" for="message">Tell Us About Your Project</label>
+        <textarea class="form-textarea" id="message" name="message" placeholder="Describe the scope, timeline, and any key requirements…" required></textarea>
+      </div>
+      <button type="submit" class="btn-primary" style="text-align:center; border:none; cursor:pointer; font-family:inherit;">Send Enquiry →</button>
+    </form>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-logo">IRON<span>FLEX</span></div>
+  <div class="footer-copy">© 2026 IRONFLEX Construction Inc. All rights reserved.</div>
+</footer>
+
+</body>
+</html>
